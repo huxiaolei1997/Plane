@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "resource.h"
 
 USING_NS_CC;
 
@@ -27,16 +28,25 @@ bool Enemy::init()
 
 	Sprite* sprite;
 
+	// n为0到9之间的一个数
 	int n = rand() % 10;
-	if (n >= 2)
+	if (n >= 6)
 	{
-		sprite = Sprite::create("PaperPlane_01.png");
-		m_hitScore = 100;
+		sprite = Sprite::create(ENEMY_PLANE_1);
+		m_hitScore = 50;
+		// 打中之后马上死亡
 		m_isSoonDie = 1;
 	}
-	else
+	else if(n >= 2) {
+		sprite = Sprite::create(ENEMY_PLANE_2);
+		m_hitScore = 100;
+		// 打中之后马上死亡
+		m_isSoonDie = 1;
+
+	}
+	else 
 	{
-		sprite = Sprite::create("PaperPlane_02.png");
+		sprite = Sprite::create(ENEMY_PLANE_3);
 		m_hitScore = 200;
 		m_isSoonDie = 0;
 	}	

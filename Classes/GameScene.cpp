@@ -4,8 +4,9 @@
 #include "GameDefine.h"
 #include "GameOverScene.h"
 #include "SimpleAudioEngine.h"
+#include "resource.h"
 
-USING_NS_CC;
+	USING_NS_CC;
 using namespace CocosDenshion;
 
 cocos2d::Scene * GameScene::createScene()
@@ -18,10 +19,10 @@ cocos2d::Scene * GameScene::createScene()
 
 bool GameScene::init()
 {
-	if(!Layer::init())
+	if (!Layer::init())
 		return false;
 
-	//±³¾°
+	//èƒŒæ™¯
 	galaxy1 = Sprite::create("galaxy.png");
 	galaxy1->setAnchorPoint(Point::ZERO);
 	galaxy1->setPosition(Point::ZERO);
@@ -32,14 +33,14 @@ bool GameScene::init()
 	galaxy2->setPosition(Point::ZERO);
 	addChild(galaxy2);
 
-	//·ÖÊı
+	//åˆ†æ•°
 	m_score = 0;
 	auto scoreNum = Label::createWithSystemFont("Score: 0", "Consolas", 30);
 	scoreNum->setTag(110);
-	scoreNum->setPosition(Point(winSize_width/5, winSize_height*15/16));
+	scoreNum->setPosition(Point(winSize_width / 5, winSize_height * 15 / 16));
 	addChild(scoreNum, 1);
 
-	//ÉúÃü
+	//ç”Ÿå‘½
 	for (int i = 0; i < 3; ++i)
 	{
 		auto heart = Sprite::create("heart.png");
@@ -48,20 +49,20 @@ bool GameScene::init()
 		addChild(heart, 1);
 	}
 
-	//·É»ú
-	dir = 0;	//Ä¬ÈÏ´¦ÓÚÍ£Ö¹×´Ì¬
+	//é£æœº
+	dir = 0;	//é»˜è®¤å¤„äºåœæ­¢çŠ¶æ€
 	newPlane();
 
-	//´¥ÃşÕìÌı
+	//è§¦æ‘¸ä¾¦å¬
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
-	listener->onTouchBegan = [&](Touch * t, Event * e){
+	listener->onTouchBegan = [&](Touch * t, Event * e) {
 		m_x = t->getLocation().x;
 		m_y = t->getLocation().y;
 		return true;
 	};
 
-	listener->onTouchMoved = [&](Touch * t, Event * e){
+	listener->onTouchMoved = [&](Touch * t, Event * e) {
 		int px = t->getLocation().x - m_x;
 		int py = t->getLocation().y - m_y;
 
@@ -74,10 +75,10 @@ bool GameScene::init()
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
-	//¼üÅÌÊÂ¼şÕìÌı
+	//é”®ç›˜äº‹ä»¶ä¾¦å¬
 	auto listener2 = EventListenerKeyboard::create();
 
-	listener2->onKeyPressed = [&](EventKeyboard::KeyCode k, Event * e) {//ÅĞ¶ÏÒÆ¶¯·½Ïò²¢¸Ä±ä·½Ïò
+	listener2->onKeyPressed = [&](EventKeyboard::KeyCode k, Event * e) {//åˆ¤æ–­ç§»åŠ¨æ–¹å‘å¹¶æ”¹å˜æ–¹å‘
 
 		switch (k)
 		{
@@ -105,19 +106,19 @@ bool GameScene::init()
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener2, this);
 
-	//ÒÆ¶¯±³¾°
+	//ç§»åŠ¨èƒŒæ™¯
 	this->schedule(schedule_selector(GameScene::scrollBG), 0.01f);
 
-	//Ôö¼Ó×Óµ¯¡¢µĞ»ú
+	//å¢åŠ å­å¼¹ã€æ•Œæœº
 	this->schedule(schedule_selector(GameScene::newBody), 1);
 
-	//ÒÆ¶¯·É»ú¡¢×Óµ¯¡¢µĞ»ú
+	//ç§»åŠ¨é£æœºã€å­å¼¹ã€æ•Œæœº
 	this->schedule(schedule_selector(GameScene::moveBody), 0.02);
 
-	//Åö×²¼ì²âºÍÓÎÏ·Âß¼­
+	//ç¢°æ’æ£€æµ‹å’Œæ¸¸æˆé€»è¾‘
 	this->scheduleUpdate();
 
-	//²¥·Å±³¾°ÒôÀÖ
+	//æ’­æ”¾èƒŒæ™¯éŸ³ä¹
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("action_world1.mp3", true);
 
 	return true;
@@ -125,7 +126,7 @@ bool GameScene::init()
 
 void GameScene::scrollBG(float t)
 {
-	//Á½¸ö±³¾°Ñ­»·ÒÆ¶¯
+	//ä¸¤ä¸ªèƒŒæ™¯å¾ªç¯ç§»åŠ¨
 	galaxy1->setPositionY(galaxy1->getPositionY() - 1.0f);
 	galaxy2->setPositionY(galaxy1->getPositionY() + galaxy1->getContentSize().height - 2.0f);
 	if (galaxy2->getPositionY() <= 0)
@@ -156,7 +157,7 @@ void GameScene::newPlane()
 void GameScene::newBullet()
 {
 	PlaneSprite* plane = (PlaneSprite*)this->getChildByTag(120);
-	auto bullet = Sprite::create("bullet_03.png");
+	auto bullet = Sprite::create(BULLET);
 	bullet->setPosition(Point(plane->getPosition().x, plane->getPosition().y + plane->getContentSize().height));
 	this->addChild(bullet);
 	allBullet.pushBack(bullet);
@@ -173,7 +174,7 @@ void GameScene::newEnemy()
 void GameScene::movePlane()
 {
 	auto p = this->getChildByTag(120);
-	
+
 	switch (dir)
 	{
 	case 1:
@@ -221,7 +222,7 @@ void GameScene::moveEnemy()
 	}
 }
 
-//±¬Õ¨¶¯»­
+//çˆ†ç‚¸åŠ¨ç”»
 void GameScene::newBomb(int x, int y, int type)
 {
 	std::string typestr;
@@ -263,7 +264,7 @@ void GameScene::update(float t)
 		auto enemy = allEnemy.at(i);
 		Rect er(enemy->m_x, enemy->m_y, 64, 64);
 
-		//¼ì²âµĞ»úÓë×Óµ¯Åö×²
+		//æ£€æµ‹æ•Œæœºä¸å­å¼¹ç¢°æ’
 		for (int j = 0; j < allBullet.size(); ++j)
 		{
 			auto nowBullet = allBullet.at(j);
@@ -272,22 +273,22 @@ void GameScene::update(float t)
 			{
 				if (enemy->m_isSoonDie)
 				{
-					//¼Ó·Ö
+					//åŠ åˆ†
 					Label* labScore = (Label*)this->getChildByTag(110);
 					m_score += enemy->m_hitScore;
 					labScore->setString(StringUtils::format("score: %d", m_score));
-					//±¬Õ¨Ğ§¹û
+					//çˆ†ç‚¸æ•ˆæœ
 					newBomb(nowBullet->getPositionX(), nowBullet->getPositionY(), 1);
-					//Á£×ÓÌØĞ§
+					//ç²’å­ç‰¹æ•ˆ
 					auto ps = ParticleSystemQuad::create("bomb.plist");
 					ps->setPosition(Point(nowBullet->getPositionX(), nowBullet->getPositionY()));
 					this->addChild(ps);
-					//²¥·ÅÒôĞ§
+					//æ’­æ”¾éŸ³æ•ˆ
 					SimpleAudioEngine::getInstance()->playEffect("explosion3.mp3");
-					//×Óµ¯ÏûÊ§
+					//å­å¼¹æ¶ˆå¤±
 					nowBullet->removeFromParent();
 					allBullet.eraseObject(nowBullet);
-					//µĞ»úÏûÊ§
+					//æ•Œæœºæ¶ˆå¤±
 					enemy->removeFromParent();
 					allEnemy.eraseObject(enemy);
 					i--;
@@ -297,9 +298,9 @@ void GameScene::update(float t)
 				else
 				{
 					enemy->m_hitNum++;
-					//²¥·ÅÒôĞ§
+					//æ’­æ”¾éŸ³æ•ˆ
 					SimpleAudioEngine::getInstance()->playEffect("explosion3.mp3");
-					//×Óµ¯ÏûÊ§
+					//å­å¼¹æ¶ˆå¤±
 					nowBullet->removeFromParent();
 					allBullet.eraseObject(nowBullet);
 
@@ -313,7 +314,7 @@ void GameScene::update(float t)
 			}
 		}
 
-		//¼ì²âµĞ»úÓë·É»úÅö×²
+		//æ£€æµ‹æ•Œæœºä¸é£æœºç¢°æ’
 		Rect pr(plane->getPositionX(), plane->getPositionY(), plane->getContentSize().width, plane->getContentSize().height);
 		if (er.intersectsRect(pr))
 		{
@@ -321,15 +322,15 @@ void GameScene::update(float t)
 			heart->removeFromParent();
 			plane->m_hitNum++;
 
-			//µĞ»úÏûÊ§
+			//æ•Œæœºæ¶ˆå¤±
 			enemy->removeFromParent();
 			allEnemy.eraseObject(enemy);
-			//±¬Õ¨Ğ§¹û
+			//çˆ†ç‚¸æ•ˆæœ
 			newBomb(plane->getPositionX(), plane->getPositionY(), 2);
-			//²¥·ÅÒôĞ§
+			//æ’­æ”¾éŸ³æ•ˆ
 			SimpleAudioEngine::getInstance()->playEffect("explosion3.mp3");
 
-			//·É»ú±»»÷ÖĞ´ÎÊı³¬¹ı3´Î
+			//é£æœºè¢«å‡»ä¸­æ¬¡æ•°è¶…è¿‡3æ¬¡
 			if (plane->m_hitNum >= 3)
 			{
 				gameOver();
