@@ -3,8 +3,8 @@
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
 #include "resource.h"
-#include "extensions\cocos-ext.h"  
-USING_NS_CC_EXT;
+//#include "extensions\cocos-ext.h"  
+//USING_NS_CC_EXT;
 
 USING_NS_CC;
 using namespace std;;
@@ -26,7 +26,7 @@ bool SplashScene::init()
 
 	//TTFConfig config("fonts/Marker Felt.ttf", 100);
 
-	auto GameName = Label::createWithTTF("飞机大战", FONT_TYPE, 50);
+	auto GameName = Label::createWithTTF("椋炴満澶ф垬", FONT_TYPE, 50);
 	GameName->setPosition(Point(size.width / 2, size.height / 2));
 	this->addChild(GameName);
 
@@ -35,27 +35,27 @@ bool SplashScene::init()
 	GameAuthor->setScale(0.3);
 	this->addChild(GameAuthor);
 
-	//璐﹀彿妗?璁剧疆杈撳叆8涓瓧绗? 
-	auto editbox1 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
-	editbox1->setAnchorPoint(Point(0, 0));
-	editbox1->setPosition(Point(size.width *0.3, size.height*0.55));
-	editbox1->setPlaceHolder("name:");//鍗犱綅瀛楃  
-	editbox1->setMaxLength(8);
-	editbox1->setFontColor(Color3B::BLACK);//璁剧疆杈撳叆瀛椾綋鐨勯鑹? 
-	editbox1->setTag(222);
-	this->addChild(editbox1, 2);
-	//瀵嗙爜妗?password  
-	auto editbox2 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
-	editbox2->setAnchorPoint(Point(0, 0));
-	editbox2->setPosition(Point(size.width *0.3, size.height*0.4));
-	editbox2->setPlaceHolder("mima:");
-	editbox2->setPlaceholderFontColor(Color3B::RED);//璁剧疆鍗犱綅瀛椾綋鐨勯鑹? 
-	editbox2->setFontColor(Color3B::BLACK);
-	editbox2->setInputMode(EditBox::InputMode::NUMERIC);//璁剧疆杈撳叆绫诲瀷 鏁板瓧鍙婄壒娈婄鍙疯緭鍏? 
-	editbox2->setInputFlag(EditBox::InputFlag::PASSWORD);//璁剧疆杈撳叆鏍囧織 瀵嗙爜杈撳叆鏍囧織锛堟樉绀轰负*锛? 
-	editbox2->setMaxLength(8);
-	editbox2->setTag(333);
-	this->addChild(editbox2, 2);
+	////鐠愶箑褰垮?鐠佸墽鐤嗘潏鎾冲弳8娑擃亜鐡х粭? 
+	//auto editbox1 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
+	//editbox1->setAnchorPoint(Point(0, 0));
+	//editbox1->setPosition(Point(size.width *0.3, size.height*0.55));
+	//editbox1->setPlaceHolder("name:");//閸楃姳缍呯€涙顑? 
+	//editbox1->setMaxLength(8);
+	//editbox1->setFontColor(Color3B::BLACK);//鐠佸墽鐤嗘潏鎾冲弳鐎涙ぞ缍嬮惃鍕杹閼? 
+	//editbox1->setTag(222);
+	//this->addChild(editbox1, 2);
+	////鐎靛棛鐖滃?password  
+	//auto editbox2 = EditBox::create(Size(200, 35), Scale9Sprite::create("editbox.png"));
+	//editbox2->setAnchorPoint(Point(0, 0));
+	//editbox2->setPosition(Point(size.width *0.3, size.height*0.4));
+	//editbox2->setPlaceHolder("mima:");
+	//editbox2->setPlaceholderFontColor(Color3B::RED);//鐠佸墽鐤嗛崡鐘辩秴鐎涙ぞ缍嬮惃鍕杹閼? 
+	//editbox2->setFontColor(Color3B::BLACK);
+	//editbox2->setInputMode(EditBox::InputMode::NUMERIC);//鐠佸墽鐤嗘潏鎾冲弳缁鐎?閺佹澘鐡ч崣濠勫濞堝﹦顑侀崣鐤翻閸? 
+	//editbox2->setInputFlag(EditBox::InputFlag::PASSWORD);//鐠佸墽鐤嗘潏鎾冲弳閺嶅洤绻?鐎靛棛鐖滄潏鎾冲弳閺嶅洤绻旈敍鍫熸▔缁€杞拌礋*閿? 
+	//editbox2->setMaxLength(8);
+	//editbox2->setTag(333);
+	//this->addChild(editbox2, 2);
 
 	//start button
 	//MenuItemImage *startBtn = MenuItemImage::create(START_BTN, START_BTN_PRESSED, CC_CALLBACK_1(SplashScene::jumpToGame, this));
